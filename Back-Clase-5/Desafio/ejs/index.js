@@ -1,25 +1,27 @@
 const express = require("express");
 const Productos = require('./ProductsController.js');
 const app = express();
-
 const PORT = 8080;
-let personas = [];
+
+app.set("view engine", "ejs");
+app.set("views", "./views");
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.set("view engine", "ejs");
-app.set("views", "./views/ejs");
-
 let productos = new Productos();
 
-app.get("/", (req, res, next)=>{
-    res.render("index", {personas});
+app.get("/", (req, res, next) => {
+    res.render("index");
 })
 
-app.post("/personas", (req, res, next)=>{
-    personas.push(req.body);
-    console.log(req.body);
+app.get("/productos", (req, res, next) => {
+    let products = productos.getAll();
+    res.render("products", {products});
+})
+
+app.post("/productos", (req, res, next) => {
+    let new_prod = productos.add(req.body);
     res.redirect("/")
 })
 

@@ -1,0 +1,27 @@
+<div>
+    <% if(products.length > 0) {%> 
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Imagen</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% for( product of products ) { %>
+                    <tr>
+                        <th><%= product.id %></th>
+                        <th><%= product.title %></th>
+                        <th><%= product.price %></th>
+                        <th><img src="<%= product.thumbnail %>" alt="<%= product.title %>" class="img-thumbnail"></th>
+                      </tr>
+                <% } %>
+            </tbody>
+          </table>
+    <% }else{ %> 
+        <p class="alert alert-danger">No hay productos</p>
+    <% } %>
+    <button type="button" onclick="location.href='../'" class="btn btn-info">Cargar Productos</button>
+</div>
