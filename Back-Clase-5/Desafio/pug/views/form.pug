@@ -1,0 +1,16 @@
+extends template
+
+block content
+    form(method="POST" action='/productos')
+        div.mb-3
+            label.form-label(for="title") Titulo
+            input.form-control(type="text" name="title" id="title")
+        div.mb-3
+            label.form-label(for="price") Precio
+            input.form-control(type="text" name="price" id="price")
+        div.mb-3
+            label.form-label(for="thumbnail") Imagen
+            input.form-control(type="text" name="thumbnail" id="thumbnail")
+        div.mb-3
+            button.btn.btn-primary(type="submit") Agregar Producto
+            button.btn.btn-info(type="button" onclick="location.href='/productos'" style="margin-left: 5px;") Ver Productos

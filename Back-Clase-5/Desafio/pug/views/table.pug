@@ -1,0 +1,23 @@
+extends template
+
+block content
+    div
+        if products.length > 0
+            table.table.table-striped
+                thead
+                    tr
+                        th(scope="col") Id
+                        th(scope="col") Titulo
+                        th(scope="col") Precio
+                        th(scope="col") Imagen
+                tbody
+                    each product in products
+                        tr
+                            th= product.id
+                            th= product.title
+                            th= product.price
+                            th
+                                img.img-thumbnail(src=product.thumbnail, alt=product.title)
+        else
+            p.alert.alert-danger No hay productos
+        button.btn.btn-info(type="button" onclick="location.href='../'") Cargar Productos
