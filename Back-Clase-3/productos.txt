@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Escuadra",
+    "price": 123.45,
+    "thumbnail": "https://cdn0.iconfinder.com/data/icons/fitness-95/24/height-measurement-256.png"
+  },
+  {
+    "id": 2,
+    "title": "Calculadora",
+    "price": 234.56,
+    "thumbnail": "https://cdn2.iconfinder.com/data/icons/picons-basic-2/57/basic2-043_calculator-256.png"
+  },
+  {
+    "id": 3,
+    "title": "Globo Terraqueo",
+    "price": 345.67,
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/nature-emoji/50/Earth-256.png"
+  }
+]

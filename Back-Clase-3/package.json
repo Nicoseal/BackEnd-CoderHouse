@@ -1,0 +1,25 @@
+{
+  "name": "back-clase-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nicoseal/Back-Clase-3.git"
+  },
+  "author": "Nicolas Ventieri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nicoseal/Back-Clase-3/issues"
+  },
+  "homepage": "https://github.com/Nicoseal/Back-Clase-3#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  }
+}
