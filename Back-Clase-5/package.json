@@ -1,12 +1,10 @@
 {
-  "name": "back-clase-3",
+  "name": "back-clase-5",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -19,7 +17,9 @@
   },
   "homepage": "https://github.com/Nicoseal/BackEnd-CoderHouse#readme",
   "dependencies": {
-    "express": "^4.17.2",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.15"
   }
 }
