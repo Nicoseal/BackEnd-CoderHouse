@@ -1,0 +1,28 @@
+{
+  "name": "back-clase-5-hbs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nicoseal/BackEnd-CoderHouse.git"
+  },
+  "author": "Nicolas Ventieri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nicoseal/BackEnd-CoderHouse/issues"
+  },
+  "homepage": "https://github.com/Nicoseal/BackEnd-CoderHouse#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-handlebars": "^6.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
