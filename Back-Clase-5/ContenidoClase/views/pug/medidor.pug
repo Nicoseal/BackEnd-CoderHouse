@@ -1,0 +1,8 @@
+extends template
+
+block medidores
+    - const estilo = "width:50%;height:20px, margin:20px auto" 
+    h1(style="color:blue;")!=titulo
+    span=min 
+    meter(min=min max=max value=nivel style=estilo)
+    span=max

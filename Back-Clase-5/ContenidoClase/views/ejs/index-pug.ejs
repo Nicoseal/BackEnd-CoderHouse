@@ -1,0 +1,11 @@
+<%- include("./partial/header.ejs") %> 
+<h1 style="color: blue;">
+    Titulo: <%- titulo %> 
+</h1>
+
+<span><%= min+" " %> </span>
+<meter style="width:50%;height:20px; margin: 20px auto;" min=<%= min %> max=<%= max %> value=<%= nivel %> ></meter>
+<span><%= " "+max %> </span>
+
+
+<%- include("./partial/footer.ejs") %> 
