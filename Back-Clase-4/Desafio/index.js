@@ -10,7 +10,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-let productos = new Productos('productos.txt');
+let productos = new Productos();
 
 router.get('/', (req, res) => {
     res.send(productos.getAll());

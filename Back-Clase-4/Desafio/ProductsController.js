@@ -1,8 +1,5 @@
-const fs = require('fs');
-
 class Productos {
-    constructor(file_name) {
-        this.file_name = file_name;
+    constructor() {
         this.productos = [];
     }
 
