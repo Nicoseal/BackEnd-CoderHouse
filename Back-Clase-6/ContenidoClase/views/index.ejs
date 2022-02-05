@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat!!!</title>
+    <script src="./socket.io/socket.io.js"></script>
+    <style>
+        p>i{
+            color: #74af30;
+            font-size: 9pt;
+        }
+        .card{
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 0 6px 10px rgb(0 0 0 / 8%), 0 0 6px rgb(0 0 0 / 5%);
+            transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+            padding: 14px 40px 18px 36px;
+            cursor: pointer;
+            width: 250px;
+        }
+
+        .card:hover{
+            transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+        }
+        .container_chat_global{
+            margin: 50px auto 0px;
+            width: 100%;
+            max-width: 800px;
+        }
+        .container_chat{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        ul{
+            margin: 0px;
+            padding: 0px;
+        }
+        ul li {
+            list-style: none;
+            margin: 0px 0px 7px;
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container_chat_global">
+        <h2>Clase 18135</h2>
+        <div class="container_chat">
+            <div>
+                <div class="chat">
+                    <form id="data_user">
+                        <input id="email" type="text" name="email" placeholder="Ingresa tu email">
+                        <input id="user_name" type="text" name="user" placeholder="Ingresa tu usuario">
+                        <input id="mensaje" type="text" name="message" placeholder="Ingresa tu mensaje">
+                        <input type="submit" value="Enviar">
+                    </form>
+                </div>
+                <p id="parrafo"></p>
+            </div>
+            <div class="users card">
+                <h3>Todos los usuarios</h3>
+                <ul id="user_list">
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+<script>    
+    let socket = new io();
+    // let mensaje = document.getElementById("mensaje");
+    // let parrafo = document.getElementById("parrafo");
+    let form_data_user = document.getElementById("data_user");
+    let user_list = document.getElementById("user_list");
+    form_data_user.addEventListener("submit", e =>{
+        e.preventDefault();
+        let student = {
+            email: e.target[0].value,
+            user: e.target[1].value,
+            message: e.target[2].value
+        }
+        if(student.email == "" || student.user == "" || student.message == "") window.location.reload();
+        socket.emit("from_front", student);
+    })
+    // mensaje.addEventListener('keyup', (e)=>{
+    //     socket.emit("from_front", e.target.value);
+    // })
+    socket.on("fill_message", data =>{
+        fill_message(data);
+    });
+
+    socket.on("error", data =>{
+        alert(data);
+    });
+
+    socket.on("init", data =>{
+        console.log(data);
+        if(data.length > 0 ){
+            fill_message(data.students);
+            fill_users(data.users);
+        }
+    });
+
+
+    function fill_message(data){
+        let sms_html = ``;
+        for (const sms of data) {
+            sms_html += `<b>${sms.user}:</b> <span>${sms.message}</span> <i>${sms.date}</i><br>`;
+        }
+        parrafo.innerHTML = sms_html;
+    }
+
+    function fill_users(data){
+        console.log("q8719287312730127093");
+        let sms_html = ``;
+        for (const sms of data) {
+            sms_html += `<li>
+                            <span class="${sms.state}"></span> <h6>${sms.user}</h6>
+                        </li>`;
+        }
+        console.log("desde fill_users", sms_html)
+        user_list.innerHTML = sms_html;
+    }
+     
+</script>
+</body>
+</html>
