@@ -7,11 +7,12 @@
     <title>Chat!!!</title>
     <script src="./socket.io/socket.io.js"></script>
     <style>
-        p>i{
+        p>i {
             color: #74af30;
             font-size: 9pt;
         }
-        .card{
+
+        .card {
             border-radius: 4px;
             background: #fff;
             box-shadow: 0 6px 10px rgb(0 0 0 / 8%), 0 0 6px rgb(0 0 0 / 5%);
@@ -21,24 +22,28 @@
             width: 250px;
         }
 
-        .card:hover{
+        .card:hover {
             transform: scale(1.05);
         box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
         }
-        .container_chat_global{
+
+        .container_chat_global {
             margin: 50px auto 0px;
             width: 100%;
             max-width: 800px;
         }
-        .container_chat{
+
+        .container_chat {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
         }
-        ul{
+
+        ul {
             margin: 0px;
             padding: 0px;
         }
+
         ul li {
             list-style: none;
             margin: 0px 0px 7px;
@@ -69,13 +74,14 @@
         </div>
     </div>
     
-<script>    
+<script>
     let socket = new io();
     // let mensaje = document.getElementById("mensaje");
     // let parrafo = document.getElementById("parrafo");
     let form_data_user = document.getElementById("data_user");
     let user_list = document.getElementById("user_list");
-    form_data_user.addEventListener("submit", e =>{
+
+    form_data_user.addEventListener("submit", e => {
         e.preventDefault();
         let student = {
             email: e.target[0].value,
@@ -85,18 +91,20 @@
         if(student.email == "" || student.user == "" || student.message == "") window.location.reload();
         socket.emit("from_front", student);
     })
-    // mensaje.addEventListener('keyup', (e)=>{
+
+    // mensaje.addEventListener('keyup', (e)=> {
     //     socket.emit("from_front", e.target.value);
     // })
-    socket.on("fill_message", data =>{
+
+    socket.on("fill_message", data => {
         fill_message(data);
     });
 
-    socket.on("error", data =>{
+    socket.on("error", data => {
         alert(data);
     });
 
-    socket.on("init", data =>{
+    socket.on("init", data => {
         console.log(data);
         if(data.length > 0 ){
             fill_message(data.students);
@@ -104,8 +112,7 @@
         }
     });
 
-
-    function fill_message(data){
+    function fill_message(data) {
         let sms_html = ``;
         for (const sms of data) {
             sms_html += `<b>${sms.user}:</b> <span>${sms.message}</span> <i>${sms.date}</i><br>`;
@@ -124,7 +131,7 @@
         console.log("desde fill_users", sms_html)
         user_list.innerHTML = sms_html;
     }
-     
+
 </script>
 </body>
 </html>

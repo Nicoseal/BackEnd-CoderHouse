@@ -1,10 +1,15 @@
 const express = require("express");
-const Productos = require('./ProductsController.js');
-const app = express();
+let app = express();
 const PORT = 8080;
 
-app.set("view engine", "ejs");
-app.set("views", "./views");
+let path = require("path");
+let {Server: HttpServer} = require("http");
+let {Server:SocketIO} = require("socket.io");
+
+const Productos = require('./ProductsController.js');
+
+app.set("views", path.join(__dirname,"views"));
+app.set("view engine", "ejs")
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -12,17 +17,8 @@ app.use(express.urlencoded({extended:true}));
 let productos = new Productos();
 
 app.get("/", (req, res, next) => {
-    res.render("index");
-})
-
-app.get("/productos", (req, res, next) => {
     let products = productos.getAll();
-    res.render("products", {products});
-})
-
-app.post("/productos", (req, res, next) => {
-    productos.add(req.body);
-    res.redirect("/")
+    res.render("index", {products});
 })
 
 const server = app.listen(PORT, () => console.log(`Server on http://localhost:${PORT}`));

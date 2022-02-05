@@ -20,7 +20,8 @@
   "homepage": "https://github.com/Nicoseal/BackEnd-CoderHouse#readme",
   "dependencies": {
     "ejs": "^3.1.6",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "socket.io": "^4.4.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
