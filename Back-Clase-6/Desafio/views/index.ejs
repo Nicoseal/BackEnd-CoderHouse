@@ -1,4 +1,56 @@
 <%- include("./partials/header.ejs") -%>
 <%- include("./partials/form.ejs") -%>
-<%- include("./partials/table_products.ejs") -%>
-<%- include("./partials/footer.ejs") -%>
+<div class="bg-light nicontainer" id="table_prods">
+</div>
+</div>
+<script>
+    let socket = new io();
+
+    let form_load_prod = document.getElementById("load_product");
+
+    socket.on("init", data => reload_products(data));
+    socket.on("reload_products", data => reload_products(data));
+
+    form_load_prod.addEventListener("submit", e => {
+        e.preventDefault();
+        let product = {
+            title: e.target[0].value,
+            price: e.target[1].value,
+            thumbnail: e.target[2].value
+        }
+        if(product.title == "" || product.price == "" || product.thumbnail == "") window.location.reload();
+        socket.emit("save_product", product);
+    })
+
+    function reload_products(data) {
+        let table = ""
+        if(data.length > 0) {
+            table = `
+            <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Imagen</th>
+              </tr>
+            </thead>
+            <tbody>`
+            for(product of data) {
+                table += 
+                `<tr>
+                    <th>${product.id}</th>
+                    <th>${product.title}</th>
+                    <th>${product.price}</th>
+                    <th><img src="${product.thumbnail}" alt="${product.title}" class="img-thumbnail"></th>
+                </tr>`
+            }
+            table += `</tbody></table>`
+        } else {
+            table = `<p class="alert alert-danger">No hay productos</p>`
+        }
+        table_prods.innerHTML = table;
+    }
+</script>
+</body>
+</html>
