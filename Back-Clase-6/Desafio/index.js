@@ -25,13 +25,11 @@ let http = new HttpServer(app);
 let io = new SocketIO(http);
 
 io.on("connection", socket => {
-    //console.log("Nuevo cliente conectado:", socket.id);
     socket.emit('init', productos.getAll());
 
     socket.on("save_product", data => {
         productos.add(data);
         io.sockets.emit("reload_products", productos.getAll())
-        console.log(productos.getAll());
     })
 })
 
