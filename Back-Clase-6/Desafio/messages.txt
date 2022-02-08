@@ -1,0 +1,7 @@
+[
+  {
+    "email": "nicolasventieri@gmail.com",
+    "message": "¡Bienvenido al chat de la clase 6!",
+    "date": "06/02/2022 01:02:60"
+  }
+]

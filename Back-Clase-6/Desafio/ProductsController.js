@@ -13,7 +13,6 @@ class Productos {
         else
             obj.id = this.productos[this.productos.length-1].id + 1;
         this.productos.push(obj);
-        return obj;
     }
 }
 
