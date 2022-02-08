@@ -4,6 +4,7 @@
 
     let form_load_prod = document.getElementById("load_product");
     let form_send_msj = document.getElementById("send_message");
+    let chat_box = document.getElementById("message_box");
 
     socket.on("init", data => {
         reload_products(data[0]);
@@ -32,6 +33,7 @@
             message: e.target[1].value,
         }
         if(message.email == "" || message.message == "") window.location.reload();
+        chat_box.value = "";
         socket.emit("new_message", message);
     })
 

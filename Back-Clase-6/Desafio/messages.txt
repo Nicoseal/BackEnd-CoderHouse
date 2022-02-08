@@ -3,5 +3,40 @@
     "email": "nicolasventieri@gmail.com",
     "message": "¡Bienvenido al chat de la clase 6!",
     "date": "06/02/2022 01:02:60"
+  },
+  {
+    "email": "nicoculini21@gmail.com",
+    "message": "puto",
+    "date": "08/02/2022 15:02:59"
+  },
+  {
+    "email": "nicoculini21@gmail.com",
+    "message": "asfsad",
+    "date": "08/02/2022 15:02:41"
+  },
+  {
+    "email": "nicolasventieri@gmail.com",
+    "message": "gaton",
+    "date": "08/02/2022 15:02:15"
+  },
+  {
+    "email": "nicoculini21@gmail.com",
+    "message": "gato",
+    "date": "08/02/2022 15:02:99"
+  },
+  {
+    "email": "anicoculini21@gmail.com",
+    "message": "gay",
+    "date": "08/02/2022 15:02:07"
+  },
+  {
+    "email": "nicolasventiei@gmail.com",
+    "message": "gaton",
+    "date": "08/02/2022 15:02:54"
+  },
+  {
+    "email": "nicolasventiei@gmail.coma",
+    "message": "asd",
+    "date": "08/02/2022 15:02:67"
   }
 ]
