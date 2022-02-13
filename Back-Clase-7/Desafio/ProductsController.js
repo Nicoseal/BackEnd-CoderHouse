@@ -21,7 +21,7 @@ class Productos {
             obj.id = 1;
         else
             obj.id = arr[arr.length-1].id + 1;
-        obj.timestamp = moment().format("DD/MM/YYYY HH:MM:SS");
+        obj.timestamp = Date.now();
         arr.push(obj);
         fs.writeFileSync(this.file_name, JSON.stringify(arr, null, 2));
         return obj;

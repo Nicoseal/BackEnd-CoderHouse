@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "nombre": "nico",
+    "descripcion": "",
+    "codigo": 5000,
+    "foto": "https://yt3.ggpht.com/ytc/AKedOLSlIZFe1AAKhfiR9UtjOG7FXyh0HBnxwsiKG0lV=s900-c-k-c0x00ffffff-no-rj",
+    "precio": 120,
+    "stock": 1,
+    "id": 1,
+    "timestamp": 1644759078237
+  }
+]

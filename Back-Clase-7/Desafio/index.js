@@ -1,7 +1,7 @@
 const express = require("express");
 const { config } = require("./config");
 const Productos = require('./ProductsController.js');
-const Carritos = require('./CartController.js');
+const Carritos = require('./CartsController.js');
 
 const {Router} = express;
 const routerProd = new Router();
@@ -73,8 +73,45 @@ routerProd.delete('/:id', (req, res) => {
 })
 
 // Carrito
-routerCarr.get('/', (req, res) => {
-    res.send(carritos.getAll());
+routerCarr.post('/', (req, res) => {
+    res.send({id: carritos.create()});
+})
+
+routerCarr.delete('/:id', (req, res) => {
+    let ans = carritos.deleteById(req.params.id);
+    if(ans == -1)
+        res.send({error: 405, description: "Carrito no encontrado"});
+    else
+        res.send(ans);
+})
+
+routerCarr.get('/:id/productos', (req, res) => {
+    let ans = carritos.getProds(req.params.id);
+    if(ans == -1)
+        res.send({error: 405, description: "Carrito no encontrado"});
+    else
+        res.send(ans);
+})
+
+routerCarr.post('/:id/productos/:id_prod', (req, res) => {
+    let prod = productos.getById(req.params.id_prod);
+    if(prod == -1)
+        res.send({error: 404, description: "Producto no encontrado"});
+    let ans = carritos.addProd(req.params.id, prod);
+    if(ans == -1)
+        res.send({error: 405, description: "Carrito no encontrado"});
+    else
+        res.send(ans);
+})
+
+routerCarr.delete('/:id/productos/:id_prod', (req, res) => {
+    let ans = carritos.deleteProd(req.params.id, req.params.id_prod);
+    if(ans == -1)
+        res.send({error: 405, description: "Carrito no encontrado"});
+    else if(ans == -2)
+        res.send({error: 404, description: "Producto no encontrado"});
+    else
+        res.send(ans);
 })
 
 // Router
