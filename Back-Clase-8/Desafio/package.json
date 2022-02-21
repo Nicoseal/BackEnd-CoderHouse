@@ -1,0 +1,31 @@
+{
+  "name": "back-clase-8",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nicoseal/BackEnd-CoderHouse.git"
+  },
+  "author": "Nicolas Ventieri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nicoseal/BackEnd-CoderHouse/issues"
+  },
+  "homepage": "https://github.com/Nicoseal/BackEnd-CoderHouse#readme",
+  "dependencies": {
+    "better-sqlite3": "^7.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "knex": "^1.0.3",
+    "mysql": "^2.18.1",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
