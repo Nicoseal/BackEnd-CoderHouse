@@ -23,6 +23,7 @@
             thumbnail: e.target[2].value
         }
         if(product.title == "" || product.price == "" || product.thumbnail == "") window.location.reload();
+        alert("Product added successfully");
         socket.emit("save_product", product);
     })
 
