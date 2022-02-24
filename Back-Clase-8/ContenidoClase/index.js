@@ -1,7 +1,7 @@
 const expres = require("express");
 let {config} = require("./config");
 let cors = require("cors");
-let db_knex = require("./config/database")
+let db_knex = require("./config/database");
 let app = expres();
 let PORT = config.port;
 
