@@ -1,0 +1,86 @@
+</div>
+<script>
+    let socket = new io();
+
+    let form_load_prod = document.getElementById("load_product");
+    let form_send_msj = document.getElementById("send_message");
+    let chat_box = document.getElementById("message_box");
+
+    socket.on("init", data => {
+        reload_products(data[0]);
+        reload_messages(data[1]);
+    });
+
+    socket.on("reload_products", data => reload_products(data));
+    socket.on("reload_messages", data => reload_messages(data));
+    socket.on("error", data => alert(data));
+
+    form_load_prod.addEventListener("submit", e => {
+        e.preventDefault();
+        let product = {
+            title: e.target[0].value,
+            price: e.target[1].value,
+            thumbnail: e.target[2].value
+        }
+        if(product.title == "" || product.price == "" || product.thumbnail == "") window.location.reload();
+        socket.emit("save_product", product);
+    })
+
+    form_send_msj.addEventListener("submit", e => {
+        e.preventDefault();
+        let message = {
+            email: e.target[0].value,
+            message: e.target[1].value,
+        }
+        if(message.email == "" || message.message == "") window.location.reload();
+        chat_box.value = "";
+        socket.emit("new_message", message);
+    })
+
+    /* Aqui se podria agregar un evento en el cual el usuario al desconectarse se actualice
+    su estado a inactivo en el controlador, no lo agrego debido a que no hay verificacion de contraseña futura*/
+
+    function reload_products(data) {
+        let table = "<h3>Lista de productos</h3><hr>"
+        if(data.length > 0) {
+            table += `
+            <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Imagen</th>
+              </tr>
+            </thead>
+            <tbody>`
+            for(product of data) {
+                table += 
+                `<tr>
+                    <th>${product.id}</th>
+                    <th>${product.title}</th>
+                    <th>${product.price}</th>
+                    <th><img src="${product.thumbnail}" alt="${product.title}" class="img-thumbnail"></th>
+                </tr>`
+            }
+            table += `</tbody></table>`
+        } else {
+            table += `<p class="alert alert-danger">No hay productos</p>`
+        }
+        table_prods.innerHTML = table;
+    }
+
+    function reload_messages(data) {
+        let text = ""
+        if(data.length > 0) {
+            for(msj of data) {
+                text += `<b style="color: blue;">${msj.email}</b> <span style="color: brown;">[${msj.date}]:</span> <i style="color: green;">${msj.message}</i><br>`
+            }
+        } else {
+            text = `<p class="alert alert-danger">Todavia no hay mensajes</p>`
+        }
+        chat.innerHTML = text;
+    }
+</script>
+</body>
+</html>

@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -20,9 +22,12 @@
     "better-sqlite3": "^7.5.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.3",
     "knex": "^1.0.3",
+    "moment": "^2.29.1",
     "mysql": "^2.18.1",
+    "socket.io": "^4.4.1",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
