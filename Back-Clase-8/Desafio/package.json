@@ -27,8 +27,7 @@
     "knex": "^1.0.3",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
-    "socket.io": "^4.4.1",
-    "sqlite3": "^5.0.2"
+    "socket.io": "^4.4.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

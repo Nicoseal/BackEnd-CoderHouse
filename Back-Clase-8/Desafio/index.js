@@ -6,7 +6,8 @@ const {Server: HttpServer} = require("http");
 let {Server:SocketIO} = require("socket.io");
 
 let {config} = require("./config");
-let db_knex = require("./config/database");
+let db_maria = require("./config/mariaDB");
+let db_sqlite = require("./config/sqlite");
 
 let app = express();
 let PORT = config.port;
@@ -25,9 +26,9 @@ app.set("view engine", "ejs");
 // Functions
 (async () => {
     try {
-        let exist = await db_knex.schema.hasTable("products");
+        let exist = await db_maria.schema.hasTable("products");
         if(!exist) {
-            await db_knex.schema.createTable("products", table => {
+            await db_maria.schema.createTable("products", table => {
                 table.increments("id").primary(),
                 table.string("title"),
                 table.float("price"),
@@ -43,7 +44,7 @@ app.set("view engine", "ejs");
 
 async function addProduct(data) {
     try {
-        await db_knex.from("products").insert(data);
+        await db_maria.from("products").insert(data);
         getProducts().then(result => {
             io.sockets.emit("reload_products", result);
         }).catch(error => {
@@ -57,7 +58,7 @@ async function addProduct(data) {
 
 async function getProducts() {
     try {
-        let response = await db_knex.from("products");
+        let response = await db_maria.from("products");
         response = JSON.parse(JSON.stringify(response));
         return response;
     } catch(e) {
