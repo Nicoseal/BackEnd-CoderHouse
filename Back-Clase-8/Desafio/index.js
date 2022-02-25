@@ -1,4 +1,5 @@
 const express = require("express");
+const moment = require("moment");
 let path = require("path");
 let cors = require("cors");
 
@@ -8,6 +9,7 @@ let {Server:SocketIO} = require("socket.io");
 let {config} = require("./config");
 let db_maria = require("./config/mariaDB");
 let db_sqlite = require("./config/sqlite");
+let users = require("./UsersController");
 
 let app = express();
 let PORT = config.port;
@@ -35,7 +37,7 @@ app.set("view engine", "ejs");
                 table.string("thumbnail")
             });
         } else {
-            console.log("This table already exists");
+            console.log("This table already exists, MariaDB");
         }
     } catch (error) {
         console.log(error);
@@ -68,14 +70,59 @@ async function getProducts() {
 };
 
 // Functions Sqlite3
+(async () => {
+    try {
+        let exist = await db_sqlite.schema.hasTable("messages");
+        if(!exist) {
+            await db_sqlite.schema.createTable("messages", table => {
+                table.increments("id").primary(),
+                table.string("email"),
+                table.string("message"),
+                table.string("date")
+            });
+        } else {
+            console.log("This table already exists, Sqlite");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+})();
 
+async function addMessage(data) {
+    try {
+        await db_sqlite.from("messages").insert(data);
+        getMessages().then(result => {
+            io.sockets.emit("reload_messages", result);
+        }).catch(error => {
+            console.log(error);
+        });
+    } catch(e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+async function getMessages() {
+    try {
+        let response = await db_sqlite.from("messages");
+        response = JSON.parse(JSON.stringify(response));
+        return response;
+    } catch(e) {
+        console.log(e);
+        throw e;
+    }
+};
 
 // Connections
 app.get("/", (req, res, next) => res.render("index"));
 
 io.on("connection", socket => {
-    getProducts().then(result => {
-        socket.emit('init', [result, []/*messages.getAll()*/]);
+    getProducts().then(result_prods => {
+        getMessages().then(result_msg => {
+            socket.emit('init', [result_prods, result_msg]);
+        }).catch(err => {
+            console.log(err);
+        });
     }).catch(error => {
         console.log(error);
     });
@@ -84,16 +131,13 @@ io.on("connection", socket => {
 
     socket.on("new_message", data => {
         if(users.exist(data.email)) {
-            if(users.isValid(data.email, socket.id)) {
-                messages.add({...data, date: moment().format("DD/MM/YYYY HH:MM:SS")});
-                io.sockets.emit("reload_messages", messages.getAll())
-            } else {
+            if(users.isValid(data.email, socket.id))
+                addMessage({...data, date: moment().format("DD/MM/YYYY HH:MM:SS")});
+            else
                 socket.emit("error", `El usuario ${data.email} ya está en uso`);
-            }
         } else {
             users.create({email:data.email, id:socket.id, status:"active"});
-            messages.add({...data, date: moment().format("DD/MM/YYYY HH:MM:SS")});
-            io.sockets.emit("reload_messages", messages.getAll());
+            addMessage({...data, date: moment().format("DD/MM/YYYY HH:MM:SS")});
         }      
     });
 });
