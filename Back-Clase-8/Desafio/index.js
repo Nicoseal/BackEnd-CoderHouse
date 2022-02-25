@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended:true}));
 app.set("views", path.join(__dirname,"views"));
 app.set("view engine", "ejs");
 
-// Functions
+// Functions MariaDB
 (async () => {
     try {
         let exist = await db_maria.schema.hasTable("products");
@@ -66,6 +66,9 @@ async function getProducts() {
         throw e;
     }
 };
+
+// Functions Sqlite3
+
 
 // Connections
 app.get("/", (req, res, next) => res.render("index"));

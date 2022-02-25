@@ -4,7 +4,7 @@ let knex = require("knex");
 var sqlite3 = knex ({
     client: 'better-sqlite3',
     connection: {
-        filename: "./DB/mydb.sqlite"
+        filename: "./DB/ecommerce.sqlite"
     },
     useNullAsDefault: true,
     pool: { min: 0, max: 7 }
