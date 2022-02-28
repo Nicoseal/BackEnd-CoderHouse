@@ -1,0 +1,65 @@
+### Pre consigna ###
+use ecommerce
+db.createCollection("messages")
+db.createCollection("products")
+
+### Punto 1 y 2 ###
+db.products.insert([
+    {title: "Regla", price: 150, thumbnail: "https://as1.ftcdn.net/v2/jpg/03/16/39/24/1000_F_316392491_d9bxQyIbyjO0zdk0YfEL3jV6s74GEwAi.jpg"},
+    {title: "Leche", price: 250, thumbnail: "https://as2.ftcdn.net/v2/jpg/04/42/89/11/1000_F_442891117_ti1OnxDc6ZjhKdht5yBmS7IsO9N9cqjl.jpg"},
+    {title: "Funda Smartphone", price: 500, thumbnail: "https://t4.ftcdn.net/jpg/03/12/57/97/240_F_312579728_JztO9YzcpOwnjuPpnh7i3pxfH1HDbX2l.jpg"},
+    {title: "Auriculares", price: 1000, thumbnail: "."},
+    {title: "Toalla", price: 990, thumbnail: "."},
+    {title: "Mate", price: 785, thumbnail: "."},
+    {title: "Escoba", price: 842, thumbnail: "."},
+    {title: "Sabanas", price: 2500, thumbnail: "."},
+    {title: "Mochila", price: 4799, thumbnail: "."},
+    {title: "Yerba", price: 752, thumbnail: "."}
+])
+db.messages.insert([
+    {email: "nicolasventieri@gmail.com", message: "Hola", date: "28/02/2022 16:31:23"},
+    {email: "nicolasventieri@gmail.com", message: "Estos", date: "28/02/2022 16:31:24"},
+    {email: "nicolasventieri@gmail.com", message: "Son", date: "28/02/2022 16:31:25"},
+    {email: "nicolasventieri@gmail.com", message: "Unos", date: "28/02/2022 16:31:26"},
+    {email: "nicolasventieri@gmail.com", message: "Mensajes", date: "28/02/2022 16:31:27"},
+    {email: "nicolasventieri@gmail.com", message: "De", date: "28/02/2022 16:31:28"},
+    {email: "nicolasventieri@gmail.com", message: "Prueba", date: "28/02/2022 16:31:29"},
+    {email: "nicolasventieri@gmail.com", message: "Para", date: "28/02/2022 16:31:30"},
+    {email: "nicolasventieri@gmail.com", message: "El", date: "28/02/2022 16:31:31"},
+    {email: "nicolasventieri@gmail.com", message: "Desafio", date: "28/02/2022 16:31:31"}
+])
+
+### Punto 3 ###
+db.products.find().pretty()
+db.messages.find().pretty()
+
+### Punto 4 ###
+db.products.count()
+db.messages.count()
+
+### Punto 5 ###
+/// A ///
+db.products.insertOne({title: "Extra", price: 999, thumbnail: "."})
+/// B ///
+--- i ---
+db.products.find({"price": {$lt: 1000}}).pretty()
+--- ii ---
+db.products.find({"price": {$in: [1000, 3000]}}).pretty()
+--- iii ---
+db.products.find({"price": {$gt: 3000}}).pretty()
+--- iv ---
+db.products.find().sort({price: 1}).skip(2).limit(1)
+/// C ///
+db.products.updateMany({}, {$set: {"stock": 100}})
+/// D ///
+db.products.updateMany({"price": {$gt: 4000}}, {$set: {"stock": 0}})
+/// E ///
+db.products.deleteMany({"price": {$lt: 1000}})
+
+### Punto 6 ###
+use admin
+db.createUser({
+    user: "pepe",
+    pwd: "asd456",
+    roles: [{role: "read", db: "ecommerce"}]
+})
