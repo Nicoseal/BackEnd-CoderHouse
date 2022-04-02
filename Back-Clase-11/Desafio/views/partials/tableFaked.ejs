@@ -1,0 +1,23 @@
+<div class="bg-light nicontainer">
+    <h3>Lista de productos</h3><hr/>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Imagen</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% for(var i=0; i < faked.length; i++) { %>
+            <tr>
+                <th><%=faked[i].id%></th>
+                <th><%=faked[i].title%></th>
+                <th><%=faked[i].price%></th>
+                <th><img src="<%=faked[i].thumbnail%>" alt="<%=faked[i].title%>" class="img-thumbnail"></th>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
