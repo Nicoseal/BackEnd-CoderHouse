@@ -109,7 +109,7 @@ async function getMessages() {
         response = JSON.parse(JSON.stringify(response));
         return response;
     } catch(e) {
-        console.log(e);
+        console.log(e);ñ
         throw e;
     }
 };
