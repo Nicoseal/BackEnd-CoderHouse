@@ -2,7 +2,14 @@
 <script>
     let socket = new io();
 
-    let form_load_prod = document.getElementById("load_product");
+    const user = new normalizr.schema.Entity('authors');
+    const messageSchema = new normalizr.schema.Entity('message', {
+        author: user
+    });
+    const messagesSchema = new normalizr.schema.Entity('messages', {
+        messages: [messageSchema]
+    });
+
     let form_send_msj = document.getElementById("send_message");
     let chat_box = document.getElementById("message_box");
 
@@ -15,25 +22,20 @@
     socket.on("reload_messages", data => reload_messages(data));
     socket.on("error", data => alert(data));
 
-    form_load_prod.addEventListener("submit", e => {
-        e.preventDefault();
-        let product = {
-            title: e.target[0].value,
-            price: e.target[1].value,
-            thumbnail: e.target[2].value
-        }
-        if(product.title == "" || product.price == "" || product.thumbnail == "") window.location.reload();
-        alert("Product added successfully");
-        socket.emit("save_product", product);
-    })
-
     form_send_msj.addEventListener("submit", e => {
         e.preventDefault();
         let message = {
-            email: e.target[0].value,
-            message: e.target[1].value,
+            author: {
+                id: e.target[0].value,
+                nombre: e.target[1].value,
+                apellido: e.target[2].value,
+                edad: e.target[3].value,
+                alias: e.target[4].value,
+                avatar: e.target[5].value,
+            },
+            text: e.target[6].value,
         }
-        if(message.email == "" || message.message == "") window.location.reload();
+        if(message.author.id == "" || message.text == "") window.location.reload();
         chat_box.value = "";
         socket.emit("new_message", message);
     })
@@ -72,15 +74,30 @@
     }
 
     function reload_messages(data) {
+        let percentage = data.compression;
+        let normalized = data.value;
+        let de_normalized = normalizr.denormalize(normalized.result, messagesSchema, normalized.entities);
         let text = ""
-        if(data.length > 0) {
-            for(msj of data) {
-                text += `<b style="color: blue;">${msj.email}</b> <span style="color: brown;">[${msj.date}]:</span> <i style="color: green;">${msj.message}</i><br>`
+        if(de_normalized.messages != null) {
+            for(msj of de_normalized.messages) {
+                text += `<b style="color: blue;">${msj.author.id}</b> <span style="color: brown;">[${msj.date}]:</span> <i style="color: green;">${msj.text}</i><br>`
             }
         } else {
             text = `<p class="alert alert-danger">Todavia no hay mensajes</p>`
         }
+        reload_compression(percentage);
         chat.innerHTML = text;
+    }
+
+    function reload_compression(data) {
+        let text = "Compresion: "
+        if(data != null) {
+            text += data;
+            text += "%";
+        } else {
+            text += "0%"
+        }
+        compression_box.innerHTML = text;
     }
 </script>
 </body>

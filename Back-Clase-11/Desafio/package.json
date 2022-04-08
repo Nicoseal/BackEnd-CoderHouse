@@ -27,7 +27,9 @@
     "knex": "^1.0.3",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
-    "socket.io": "^4.4.1"
+    "normalizr": "^3.6.2",
+    "socket.io": "^4.4.1",
+    "util": "^0.12.4"
   },
   "devDependencies": {
     "@faker-js/faker": "^6.1.1",
